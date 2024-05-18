@@ -1,5 +1,6 @@
 package com.example.tugas_besar_pam
 
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -14,10 +15,15 @@ interface FourSquareApiService {
         @Header("Authorization") authorization: String
     ): Response<SearchResponse>
 
+    @GET("v3/places/{id}/photos")
+    fun getPhotos(
+        @Path("id") fsqId: String,
+        @Header("Authorization") authorization: String
+    ): Call<List<Photo>>
 }
 
 data class SearchResponse(val results: List<Venue>)
-data class Venue(val name: String, val geocodes: Geocodes, val categories: List<Category>)
+data class Venue(val fsq_id: String, val name: String, val geocodes: Geocodes, val categories: List<Category>)
 data class Geocodes(val main: Main)
 data class Main(val latitude: Double, val longitude: Double)
 data class Category(val name: String)

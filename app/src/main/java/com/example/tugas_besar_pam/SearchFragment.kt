@@ -11,8 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tugas_besar_pam.Restaurant
-import com.example.tugas_besar_pam.RestaurantAdapter
 import com.example.tugas_besar_pam.databinding.FragmentSearchBinding
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +18,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 
@@ -48,7 +47,6 @@ class SearchFragment : Fragment() {
 
         currentLocation = arguments?.getParcelable("location")
 
-        // Set searchView listener
         searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let {
@@ -71,12 +69,8 @@ class SearchFragment : Fragment() {
             onRelevanClicked()
         }
 
-        val adapter = RestaurantAdapter(emptyList())
-        recyclerView.adapter = adapter
-
         return view
     }
-
 
     private fun searchRestaurants(query: String? = currentQuery, filter: String? = null) {
         if (currentLocation == null) {
@@ -113,6 +107,29 @@ class SearchFragment : Fragment() {
         }
     }
 
+    private suspend fun getPhotoUrl(fsqId: String): String {
+        val client = OkHttpClient()
+        val request = Request.Builder()
+            .url("https://api.foursquare.com/v3/places/$fsqId/photos")
+            .addHeader("Accept", "application/json")
+            .addHeader("Authorization", "fsq3ID+5NCwgxtrnfqyBktIcdxYI0AEyck+BNSA5EcQZb6w=")
+            .build()
+
+        return withContext(Dispatchers.IO) {
+            val response = client.newCall(request).execute()
+            val responseData = response.body?.string()
+            if (response.isSuccessful && responseData != null) {
+                val photos = JSONArray(responseData)
+                if (photos.length() > 0) {
+                    val photo = photos.getJSONObject(0)
+                    val prefix = photo.getString("prefix")
+                    val suffix = photo.getString("suffix")
+                    return@withContext "$prefix${suffix}"
+                }
+            }
+            return@withContext ""
+        }
+    }
 
     private suspend fun parseRestaurants(responseData: String): List<Restaurant> {
         val restaurants = mutableListOf<Restaurant>()
@@ -120,43 +137,29 @@ class SearchFragment : Fragment() {
         val results = jsonObject.getJSONArray("results")
         for (i in 0 until results.length()) {
             val result = results.getJSONObject(i)
+            val fsqId = result.getString("fsq_id")
             val name = result.getString("name")
             val distance = result.optInt("distance", 0)
             val category = result.getJSONArray("categories").getJSONObject(0).getString("name")
 
-            val restaurant = Restaurant(name, category, distance)
+            // Mendapatkan URL gambar
+            val imageUrl = getPhotoUrl(fsqId)
+
+            val restaurant = Restaurant(fsqId, name, category, distance, imageUrl)
             restaurants.add(restaurant)
         }
         return restaurants
     }
 
-
-    // Fungsi untuk memperbarui tampilan tombol relevan dan terdekat
-    private fun updateButtonBackground() {
-        if (isRelevanSelected) {
-            // Tombol relevan dipilih
-            binding.btnRelevan.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.primary)
-            binding.btnNearest.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.alt_primary)
-        } else {
-            // Tombol terdekat dipilih
-            binding.btnRelevan.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.alt_primary)
-            binding.btnNearest.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.primary)
-        }
-    }
-
-
     private fun updateRecyclerView(restaurants: List<Restaurant>) {
-        val adapter = RestaurantAdapter(restaurants)
+        val apiService = RetrofitInstance.api
+        val adapter = RestaurantAdapter(restaurants, apiService)
         recyclerView.adapter = adapter
     }
 
     private fun onNearestClicked() {
-        // Jika tombol terdekat sudah dipilih, tidak lakukan apa-apa
         if (isRelevanSelected) {
-            // Ubah status tombol
             isRelevanSelected = false
-
-            // Perbarui tampilan tombol relevan dan terdekat
             updateButtonBackground()
         }
         searchRestaurants(filter = "DISTANCE")
@@ -164,13 +167,20 @@ class SearchFragment : Fragment() {
 
     private fun onRelevanClicked() {
         if (!isRelevanSelected) {
-            // Ubah status tombol
             isRelevanSelected = true
-
-            // Perbarui tampilan tombol relevan dan terdekat
             updateButtonBackground()
         }
         searchRestaurants(filter = "RELEVANCE")
+    }
+
+    private fun updateButtonBackground() {
+        if (isRelevanSelected) {
+            binding.btnRelevan.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.primary)
+            binding.btnNearest.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.alt_primary)
+        } else {
+            binding.btnRelevan.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.alt_primary)
+            binding.btnNearest.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.primary)
+        }
     }
 
     override fun onDestroyView() {
