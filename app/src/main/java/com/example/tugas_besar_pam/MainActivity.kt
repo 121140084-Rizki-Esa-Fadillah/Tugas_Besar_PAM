@@ -1,6 +1,5 @@
 package com.example.tugas_besar_pam
 
-import SearchFragment
 import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Location
@@ -24,20 +23,37 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        replaceFragment(SearchFragment())
-
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        requestLocationPermission()
 
-        binding.navigationView.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.search -> replaceFragment(SearchFragment())
+        // Memeriksa apakah ada instance sebelumnya dari lokasi disimpan
+        if (savedInstanceState != null) {
+            currentLocation = savedInstanceState.getParcelable("location")
+        } else {
+            requestLocationPermission()
+        }
+
+        binding.navigationView.setOnItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.search -> replaceFragment(SearchFragment().apply {
+                    // Mengirim lokasi ke SearchFragment saat kembali ke sana
+                    currentLocation?.let { location ->
+                        val bundle = Bundle().apply {
+                            putParcelable("location", location)
+                        }
+                        arguments = bundle
+                    }
+                })
                 R.id.favorite -> replaceFragment(FavoriteFragment())
                 R.id.profile -> replaceFragment(ProfileFragment())
-                else -> {}
             }
             true
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        // Menyimpan lokasi saat instance di-save
+        outState.putParcelable("location", currentLocation)
     }
 
     private fun requestLocationPermission() {
@@ -71,10 +87,12 @@ class MainActivity : AppCompatActivity() {
             if (location != null) {
                 currentLocation = location
                 // Pass the location to the fragment
-                val fragment = SearchFragment()
-                val bundle = Bundle()
-                bundle.putParcelable("location", location)
-                fragment.arguments = bundle
+                val fragment = SearchFragment().apply {
+                    val bundle = Bundle().apply {
+                        putParcelable("location", location)
+                    }
+                    arguments = bundle
+                }
                 replaceFragment(fragment)
             }
         }

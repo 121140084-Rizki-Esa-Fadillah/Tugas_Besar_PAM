@@ -14,10 +14,6 @@ interface FourSquareApiService {
         @Header("Authorization") authorization: String
     ): Response<SearchResponse>
 
-    @GET("places/{fsq_id}/photos")
-    suspend fun getPlacePhotos(
-        @Path("fsq_id") fsqId: String
-    ): Response<List<PhotoResponse>>
 }
 
 data class SearchResponse(val results: List<Venue>)
@@ -25,4 +21,3 @@ data class Venue(val name: String, val geocodes: Geocodes, val categories: List<
 data class Geocodes(val main: Main)
 data class Main(val latitude: Double, val longitude: Double)
 data class Category(val name: String)
-data class PhotoResponse(val prefix: String, val suffix: String)

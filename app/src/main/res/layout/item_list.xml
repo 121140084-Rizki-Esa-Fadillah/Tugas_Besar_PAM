@@ -31,86 +31,46 @@
 
         <TextView
             android:id="@+id/titleTempat"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:layout_marginLeft="20dp"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/ratingTempat"
-            app:layout_constraintStart_toEndOf="@+id/cardView"
-            app:layout_constraintTop_toTopOf="@+id/cardView" />
-
-        <TextView
-            android:id="@+id/ratingTempat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:textColor="@color/primary"
             android:layout_marginLeft="20dp"
             android:textSize="14sp"
             android:textStyle="bold"
-            android:text="Rating : "
             app:layout_constraintBottom_toTopOf="@+id/jenisMasakan"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cardView"
-            app:layout_constraintTop_toBottomOf="@+id/titleTempat" />
-
-        <TextView
-            android:id="@+id/isi_rating"
-            android:layout_width="0dp"
-            android:layout_height="14dp"
-            android:layout_marginLeft="10dp"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/jenisMasakan"
-            app:layout_constraintStart_toEndOf="@+id/ratingTempat"
-            app:layout_constraintTop_toBottomOf="@+id/titleTempat" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="14dp"
-            android:layout_marginLeft="5dp"
-            android:src="@drawable/star"
-            app:layout_constraintBottom_toTopOf="@+id/jenisMasakan"
-            app:layout_constraintStart_toEndOf="@+id/isi_rating"
-            app:layout_constraintTop_toBottomOf="@+id/titleTempat" />
+            app:layout_constraintTop_toTopOf="@+id/cardView"
+            app:layout_constraintVertical_bias="0.3" />
 
         <TextView
             android:id="@+id/jenisMasakan"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:layout_marginLeft="20dp"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/jarak"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cardView"
-            app:layout_constraintTop_toBottomOf="@+id/ratingTempat" />
+            app:layout_constraintTop_toBottomOf="@+id/titleTempat"
+            app:layout_constraintVertical_bias="0.3" />
 
         <TextView
             android:id="@+id/jarak"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:layout_marginLeft="20dp"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             android:text="Jarak : "
             app:layout_constraintBottom_toBottomOf="@+id/cardView"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cardView"
-            app:layout_constraintTop_toBottomOf="@+id/jenisMasakan" />
-
-        <TextView
-            android:id="@+id/isi_jarak"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:layout_marginLeft="10dp"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/cardView"
-            app:layout_constraintStart_toEndOf="@+id/jarak"
-            app:layout_constraintTop_toBottomOf="@+id/jenisMasakan" />
+            app:layout_constraintTop_toBottomOf="@+id/jenisMasakan"
+            app:layout_constraintVertical_bias="0.3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
