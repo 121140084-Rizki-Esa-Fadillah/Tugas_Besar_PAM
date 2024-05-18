@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -85,7 +86,6 @@
             app:layout_constraintBottom_toTopOf="@+id/jarak"
             app:layout_constraintStart_toEndOf="@+id/cardView"
             app:layout_constraintTop_toBottomOf="@+id/ratingTempat" />
-
 
         <TextView
             android:id="@+id/jarak"
