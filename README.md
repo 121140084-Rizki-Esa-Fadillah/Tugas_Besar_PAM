@@ -47,4 +47,4 @@ Eatera merupakan aplikasi pencarian masakan/tempat makan yang memudahkan penggun
 
 ## Install Aplikasi
 
-<a href="">**DOWNLOAD APP HERE**</a>
+<a href="https://drive.google.com/file/d/1eSfMvFan_YHHrWK9PuVlNDJ8_6-rTtjp/view?usp=sharing">**DOWNLOAD APP HERE**</a>
