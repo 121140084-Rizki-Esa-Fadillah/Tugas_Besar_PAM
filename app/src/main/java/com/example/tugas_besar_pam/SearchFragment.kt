@@ -1,5 +1,6 @@
 package com.example.tugas_besar_pam
 
+import android.content.Intent
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
@@ -31,6 +32,7 @@ class SearchFragment : Fragment() {
     private var currentLocation: Location? = null
     private var currentQuery: String? = null
     private var isRelevanSelected = true
+    private lateinit var apiService: FourSquareApiService
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +48,9 @@ class SearchFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         currentLocation = arguments?.getParcelable("location")
+
+        // Inisialisasi FourSquareApiService
+        apiService = RetrofitInstance.api
 
         searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -89,7 +94,7 @@ class SearchFragment : Fragment() {
             val request = Request.Builder()
                 .url("$baseUrl?query=$query&ll=$latitude,$longitude&categories=13065$sortedUrl")
                 .addHeader("Accept", "application/json")
-                .addHeader("Authorization", "fsq3ID+5NCwgxtrnfqyBktIcdxYI0AEyck+BNSA5EcQZb6w=")
+                .addHeader("Authorization", "fsq3ID+5NCwgxtrnfqyBktIcdxYI0AEyck+BNSA5EcQZb6w=") // Ganti dengan token authorization yang sesuai
                 .build()
 
             try {
@@ -107,30 +112,6 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private suspend fun getPhotoUrl(fsqId: String): String {
-        val client = OkHttpClient()
-        val request = Request.Builder()
-            .url("https://api.foursquare.com/v3/places/$fsqId/photos")
-            .addHeader("Accept", "application/json")
-            .addHeader("Authorization", "fsq3ID+5NCwgxtrnfqyBktIcdxYI0AEyck+BNSA5EcQZb6w=")
-            .build()
-
-        return withContext(Dispatchers.IO) {
-            val response = client.newCall(request).execute()
-            val responseData = response.body?.string()
-            if (response.isSuccessful && responseData != null) {
-                val photos = JSONArray(responseData)
-                if (photos.length() > 0) {
-                    val photo = photos.getJSONObject(0)
-                    val prefix = photo.getString("prefix")
-                    val suffix = photo.getString("suffix")
-                    return@withContext "$prefix${suffix}"
-                }
-            }
-            return@withContext ""
-        }
-    }
-
     private suspend fun parseRestaurants(responseData: String): List<Restaurant> {
         val restaurants = mutableListOf<Restaurant>()
         val jsonObject = JSONObject(responseData)
@@ -143,7 +124,7 @@ class SearchFragment : Fragment() {
             val category = result.getJSONArray("categories").getJSONObject(0).getString("name")
 
             // Mendapatkan URL gambar
-            val imageUrl = getPhotoUrl(fsqId)
+            val imageUrl = ""
 
             val restaurant = Restaurant(fsqId, name, category, distance, imageUrl)
             restaurants.add(restaurant)
@@ -152,8 +133,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun updateRecyclerView(restaurants: List<Restaurant>) {
-        val apiService = RetrofitInstance.api
-        val adapter = RestaurantAdapter(restaurants, apiService)
+        val adapter = RestaurantAdapter(restaurants, this::onRestaurantClicked, apiService)
         recyclerView.adapter = adapter
     }
 
@@ -181,6 +161,12 @@ class SearchFragment : Fragment() {
             binding.btnRelevan.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.alt_primary)
             binding.btnNearest.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.primary)
         }
+    }
+
+    private fun onRestaurantClicked(restaurant: Restaurant) {
+        val intent = Intent(context, DetailActivity::class.java)
+        intent.putExtra("FSQ_ID", restaurant.id)
+        startActivity(intent)
     }
 
     override fun onDestroyView() {
