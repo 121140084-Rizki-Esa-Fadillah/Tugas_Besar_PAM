@@ -164,8 +164,12 @@ class SearchFragment : Fragment() {
     }
 
     private fun onRestaurantClicked(restaurant: Restaurant) {
-        val intent = Intent(context, DetailActivity::class.java)
-        intent.putExtra("FSQ_ID", restaurant.id)
+        val intent = Intent(context, DetailActivity::class.java).apply {
+            putExtra("FSQ_ID", restaurant.id)
+            putExtra("PLACE_NAME", restaurant.name)
+            putExtra("PLACE_CATEGORY", restaurant.category)
+            putExtra("IMAGE_URL", restaurant.imageUrl)
+        }
         startActivity(intent)
     }
 

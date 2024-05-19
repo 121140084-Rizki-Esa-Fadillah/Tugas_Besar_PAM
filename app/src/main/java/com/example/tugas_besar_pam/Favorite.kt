@@ -5,8 +5,9 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Favorite(
-    @PrimaryKey(autoGenerate = true)
-    val id : Int = 0,
-    val title: String,
-    val note: String
+    @PrimaryKey
+    val id: String,
+    val name: String,
+    val category: String,
+    val imageUrl: String
 )

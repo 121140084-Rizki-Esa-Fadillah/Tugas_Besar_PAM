@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.tugas_besar_pam.databinding.ActivityDetailBinding
+import com.example.tugas_besar_pam.Favorite
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -27,6 +28,7 @@ class DetailActivity : AppCompatActivity() {
     private val listUlasan = ArrayList<String>() // List untuk menampung teks ulasan
     private lateinit var dots: ArrayList<TextView>
     private val slideHandler = Handler()
+    private val db by lazy { FavoriteDatabase(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +46,10 @@ class DetailActivity : AppCompatActivity() {
         binding.recyclerUlasan.adapter = ulasanAdapter
 
         val fsqId = intent.getStringExtra("FSQ_ID") ?: ""
+        val placeName = intent.getStringExtra("PLACE_NAME") ?: ""
+        val placeCategory = intent.getStringExtra("PLACE_CATEGORY") ?: ""
+        val imageUrl = intent.getStringExtra("IMAGE_URL") ?: ""
+
         fetchPhotos(fsqId)
         fetchPlaceDetails(fsqId)
         fetchTips(fsqId) // Mengambil ulasan dari API Foursquare
@@ -51,6 +57,14 @@ class DetailActivity : AppCompatActivity() {
         // Mendengarkan klik tombol kembali ke halaman pencarian
         binding.bgBacktoSearch.setOnClickListener {
             onBackPressed()
+        }
+
+        binding.saveButton.setOnClickListener {
+            CoroutineScope(Dispatchers.IO).launch {
+                db.favoriteDao().addFavorite(
+                    Favorite(fsqId, placeName, placeCategory, imageUrl)
+                )
+            }
         }
 
         binding.vpGambar.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {

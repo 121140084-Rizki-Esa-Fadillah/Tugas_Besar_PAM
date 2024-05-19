@@ -97,7 +97,7 @@
                     android:elevation="4dp"
                     />
                 <EditText
-                    android:inputType="text"
+                    android:inputType="textVisiblePassword"
                     android:hint="Create password"
                     android:id="@+id/passwordEditText"
                     android:textColor="#000000"
