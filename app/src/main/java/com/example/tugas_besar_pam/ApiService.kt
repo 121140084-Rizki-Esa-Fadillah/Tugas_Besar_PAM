@@ -20,6 +20,18 @@ interface FourSquareApiService {
         @Path("id") fsqId: String,
         @Header("Authorization") authorization: String
     ): Call<List<Photo>>
+
+    @GET("v3/places/{fsq_id}")
+    fun getPlaceDetails(
+        @Path("fsq_id") fsqId: String,
+        @Header("Authorization") authorization: String
+    ): Call<PlaceDetails>
+
+    @GET("v3/places/{fsq_id}/tips")
+    suspend fun getTips(
+        @Path("fsq_id") fsqId: String,
+        @Header("Authorization") authorization: String
+    ): Response<List<Tip>>
 }
 
 data class SearchResponse(val results: List<Venue>)
@@ -27,3 +39,4 @@ data class Venue(val fsq_id: String, val name: String, val geocodes: Geocodes, v
 data class Geocodes(val main: Main)
 data class Main(val latitude: Double, val longitude: Double)
 data class Category(val name: String)
+data class Tip(val id: String, val created_at: String, val text: String)

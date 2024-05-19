@@ -115,7 +115,6 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:textSize="14sp"
-                    android:text="Rating : "
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/AlamatTempat"
@@ -137,7 +136,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:textSize="14sp"
-                    android:text="Jam Operasional : "
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/RatingTempat"
@@ -167,6 +165,28 @@
                 android:layout_height="1dp"
                 android:background="@android:color/white"
                 android:elevation="4dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ulasan dari Pengunjung"
+                    android:textColor="@color/primary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerUlasan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical"/>
+            </LinearLayout>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
