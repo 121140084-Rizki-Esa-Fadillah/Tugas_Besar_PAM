@@ -70,7 +70,7 @@
   </p><br
   
   <li><b>Entity Relationship Diagram (ERD)</b></li><br><br>
-  <img src="https://github.com/121140084-Rizki-Esa-Fadillah/Tugas_Besar_PAM/blob/main/Image/ERD_PAM.png"
+  <img src="https://github.com/121140084-Rizki-Esa-Fadillah/Tugas_Besar_PAM/blob/master/Image/ERD_PAM.png"
     width = "750"
     height = "350"><br>
   <p>Dari diagram ER di atas, ada empat entitas utama yaitu "Tempat Makan", "Daftar Favorit", "User", dan "Detail Tempat      Makan". Setiap entitas memiliki atributnya sendiri. "user" dalam hubungannya dengan "Tempat Makan" dan "Daftar Favorit"     adalah "Akses", sementara "Tempat Makan" dan “Daftar Favorit” dalam hubungannya dengan "Detail Tempat Makan" adalah         "Memiliki".</p><br>
