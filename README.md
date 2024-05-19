@@ -41,6 +41,10 @@ Eatera merupakan aplikasi pencarian masakan/tempat makan yang memudahkan penggun
 
 <a href="https://www.figma.com/proto/WF0rkLw5Ki6mkdIJ7UXVwA/Eatera?node-id=303-134&t=90WzEpVRX7elrsdR-1&scaling=scale-down&page-id=0%3A1&starting-point-nodeid=3%3A8">**CLICK HERE**</a>
 
+## Proposal Project
+
+<a href="https://docs.google.com/document/d/13Jg5xCJ3fZYxtJTYXcIx0QeNXnEgRKMhCiLOqsB0mL8/edit?usp=sharing">**CLICK HERE**</a>
+
 ## Install Aplikasi
 
 <a href="">**DOWNLOAD APP HERE**</a>
