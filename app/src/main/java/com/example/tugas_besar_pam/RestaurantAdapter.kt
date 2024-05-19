@@ -5,14 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.tugas_besar_pam.databinding.ItemListBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.text.DecimalFormat
 
 class RestaurantAdapter(
     private val restaurantList: List<Restaurant>,
-    private val apiService: FourSquareApiService
+    private val onRestaurantClicked: (Restaurant) -> Unit,
+    private val apiService: FourSquareApiService // Menambahkan FourSquareApiService sebagai parameter
 ) : RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder>() {
 
     inner class RestaurantViewHolder(private val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -22,8 +20,8 @@ class RestaurantAdapter(
             binding.jarak.text = formatDistance(restaurant.distance)
 
             // Fetch the photo
-            apiService.getPhotos(restaurant.id, "fsq3ID+5NCwgxtrnfqyBktIcdxYI0AEyck+BNSA5EcQZb6w=").enqueue(object : Callback<List<Photo>> {
-                override fun onResponse(call: Call<List<Photo>>, response: Response<List<Photo>>) {
+            apiService.getPhotos(restaurant.id, "fsq3ID+5NCwgxtrnfqyBktIcdxYI0AEyck+BNSA5EcQZb6w=").enqueue(object : retrofit2.Callback<List<Photo>> {
+                override fun onResponse(call: retrofit2.Call<List<Photo>>, response: retrofit2.Response<List<Photo>>) {
                     val photos = response.body()
                     if (!photos.isNullOrEmpty()) {
                         val photoUrl = photos[0].url
@@ -37,10 +35,15 @@ class RestaurantAdapter(
                     }
                 }
 
-                override fun onFailure(call: Call<List<Photo>>, t: Throwable) {
+                override fun onFailure(call: retrofit2.Call<List<Photo>>, t: Throwable) {
                     binding.image1.setImageResource(R.drawable.onboarding_map)
                 }
             })
+
+            // Handle restaurant item click
+            binding.root.setOnClickListener {
+                onRestaurantClicked(restaurant)
+            }
         }
 
         private fun formatDistance(distance: Int): String {
