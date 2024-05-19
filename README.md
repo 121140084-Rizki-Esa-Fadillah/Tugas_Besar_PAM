@@ -118,19 +118,26 @@
     width = "750"
     height = "750"><br>
   <p>
-    Dalam Class Diagram ini terdapat 6 kelas, antara lain : User, Tempat Makan, Search, Profil, List, dan Favorite List.      </p>
+    Dalam Class Diagram ini terdapat 6 kelas, antara lain : User, Tempat Makan, Search, Profil, List, dan Favorite List.      
+  </p>
   <ol type='1'>
-    <li>Kelas User memiliki lima atribut antara lain atribut Nama, Jenis Kelamin, Usia, Email dan Password. Dengan              menggunakan atribut-atribut ini, kita dapat menjalankan 2 metode, yaitu login atau register.</li><br>
-    <li>Kelas Tempat Makan memiliki atribut-atribut yang digunakan untuk menjelaskan detail informasi seputar tempat makan      yang sedang dilihat, mulai dari Nama, Jarak, Rating, Jenis Masakan, Alamat, Jam Operasional, Menu Makanan, dan Ulasan.      Dengan atribut-atribut tersebut, akan ada 2 metode yang dapat dijalankan: <br>
+    <li>
+      Kelas User memiliki lima atribut antara lain atribut Nama, Jenis Kelamin, Usia, Email dan Password. Dengan menggunakan atribut-atribut ini, kita dapat menjalankan 2 metode, yaitu login atau register.
+    </li><br>
+    <li>
+      Kelas Tempat Makan memiliki atribut-atribut yang digunakan untuk menjelaskan detail informasi seputar tempat makan yang sedang dilihat, mulai dari Nama, Jarak, Rating, Jenis Masakan, Alamat, Jam Operasional, Menu Makanan, dan Ulasan. Dengan atribut-atribut tersebut, akan ada 2 metode yang dapat dijalankan: <br>
     a. Search_tempat_makan: untuk mencari tempat makan sesuai preferensi user.<br>
     b. Add_to_favorite: untuk menambahkan tempat makan tersebut ke daftar favorit user. 
     </li><br>
-    <li>Kelas Search akan digunakan untuk menjalankan 4 fungsi antara lain: search_by_nama (berdasarkan nama tempat makan),     search_by_jenis_masakan (berdasarkan jenis masakan), search_by_rating (berdasarkan rating pelanggan), dan                   search_by_jarak (berdasarkan jarak antara pengguna dengan tempat makanan). Fungsi - fungsi ini dapat digunakan untuk        mencari tempat makan yang sesuai dengan preferensi user dengan menggunakan kolom pencarian pada aplikasi. </li><br>
-    <li>Kelas List akan berisi semua tempat makan yang telah ditambahkan oleh user ke daftar favorite. Kelas ini akan           berisi beberapa atribut tentang tempat makan yang telah ditambahkan ke dalam daftar favorit, seperti nama,jenis             masakan, jarak dan rating. Dan user dapat menggunakan atribut ini untuk mencari tempat makan tersebut di dalam daftar       (search_list) atau untuk menghapusnya dari daftar (delete_from_list). Kelas ini juga memiliki kelas turunan yaitu           Favorite List. </li><br>
-    <li>Kelas Profile akan terdiri dari beberapa atribut tentang pengguna, seperti Nama, Jenis Kelamin, Usia, Email dan         Password. Dalam kelas ini pengguna dapat menjalankan beberapa metode seperti: <br>
+    <li>
+      Kelas Search akan digunakan untuk menjalankan 4 fungsi antara lain: search_by_nama (berdasarkan nama tempat makan), search_by_jenis_masakan (berdasarkan jenis masakan), search_by_relevan (berdasarkan tempat paling relevan) dan search_by_jarak (berdasarkan jarak antara pengguna dengan tempat makanan). Fungsi - fungsi ini dapat digunakan untuk mencari tempat makan yang sesuai dengan preferensi user dengan menggunakan kolom pencarian pada aplikasi. 
+    </li><br>
+    <li>
+      Kelas List akan berisi semua tempat makan yang telah ditambahkan oleh user ke daftar favorite. Kelas ini akan berisi beberapa atribut tentang tempat makan yang telah ditambahkan ke dalam daftar favorit, seperti nama,jenis masakan dan jarak. User juga dapat menggunakan atribut ini untuk mencari tempat makan tersebut di dalam daftar (search_list) atau untuk menghapusnya dari daftar (delete_from_list). Kelas ini juga memiliki kelas turunan yaitu Favorite List. </li><br>
+    <li>
+      Kelas Profile akan terdiri dari beberapa atribut tentang pengguna, seperti Nama, Jenis Kelamin, Usia, Email dan Bio. Dalam kelas ini pengguna dapat menjalankan beberapa metode seperti: <br>
     a. Edit_profile: untuk mengubah data profil user.<br>
-    b. See_favorite_list: untuk masuk ke halaman daftar favorit.<br>
-    c. Logout: untuk keluar dari akun kita.
+    b. Logout: untuk keluar dari akun kita.
     </li>
   </ol><br>
   
@@ -145,16 +152,18 @@
 
 <ol type='a'>
   <li><b>Implementation Stage</b></li><br>
-  <p>Pada pembuatan aplikasi Eatera, kami menggunakan metode waterfall yang dijabarkan dalam berbagai tahap berikut:<br><br>
-  Perencanaan: Pertama kami akan melakukan analisis kebutuhan pengguna, hasil dari tahap ini adalah dokumen spesifikasi       yang mencakup semua fitur dan fungsionalitas yang dibutuhkan oleh pengguna. Fitur utama yang akan diperlihatkan seperti     pencarian masakan sesuai preferensi, menu, daftar favorit, serta ulasan pengguna.<br><br>
-  Desain:  Berdasarkan spesifikasi kebutuhan yang kami dapatkan, kami akan menciptakan desain UI/UX menggunakan figma,        tertata agar desain mudah dan dinamis digunakan pengguna. <br><br>
+  <p>
+  Pada pembuatan aplikasi Eatera, kami menggunakan metode waterfall yang dijabarkan dalam berbagai tahap berikut:<br><br>
+  Perencanaan: Pertama kami akan melakukan analisis kebutuhan pengguna, hasil dari tahap ini adalah dokumen spesifikasi yang mencakup semua fitur dan fungsionalitas yang dibutuhkan oleh pengguna. Fitur utama yang akan diperlihatkan seperti pencarian masakan sesuai preferensi, menu, daftar favorit, serta ulasan pengguna.<br><br>
+  Desain:  Berdasarkan spesifikasi kebutuhan yang kami dapatkan, kami akan menciptakan desain UI/UX menggunakan figma, tertata agar desain mudah dan dinamis digunakan pengguna. <br><br>
   Pengembangan program: Disini kami akan menggunakan arsitektur MVVM, program akan dibuat sesuai spesifikasi desain.<br><br>
-  Pengujian: Setelah pengembangan selesai, pengujian yang ketat dilakukan untuk memastikan bahwa semua fitur berfungsi        dengan benar. Ini termasuk pengujian Unit menggunakan Mockito dengan Fake, Mock, dan Dummy, serta Pengujian UI alur         dengan API menggunakan MockWebServer. <br><br>
-  Pengimplementasian : Setelah pengujian berhasil, aplikasi diimplementasikan dan dibuat tersedia untuk pengguna. Ini         termasuk pembuatan APK untuk aplikasi.
+  Pengujian: Setelah pengembangan selesai, pengujian yang ketat dilakukan untuk memastikan bahwa semua fitur berfungsi dengan benar. Ini termasuk pengujian Unit menggunakan Mockito dengan Fake, Mock, dan Dummy, serta Pengujian UI alur dengan API menggunakan MockWebServer. <br><br>
+  Pengimplementasian : Setelah pengujian berhasil, aplikasi diimplementasikan dan dibuat tersedia untuk pengguna. Ini termasuk pembuatan APK untuk aplikasi.
   </p><br>
   
   <li><b>Time Plan</b></li><br>
-  <p>Proyek dimulai pada tanggal 11 April 2024 dan akan berakhir pada tanggal 23 Mei 2024. Pengembangan Aplikasi Eatera       akan dimulai pada tanggal 25 April 2024 dan diperkirakan akan memakan waktu sekitar 5 minggu untuk diselesaikan.	
+  <p>
+    Proyek dimulai pada tanggal 11 April 2024 dan akan berakhir pada tanggal 23 Mei 2024. Pengembangan Aplikasi Eatera akan dimulai pada tanggal 25 April 2024 dan diperkirakan akan memakan waktu sekitar 5 minggu untuk diselesaikan.	
   </p><br>
   <img src="https://github.com/121140084-Rizki-Esa-Fadillah/Tugas_Besar_PAM/blob/main/Image/Timeline_UAS_PAM.png"
     width = "750"
