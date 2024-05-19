@@ -20,6 +20,12 @@ interface FourSquareApiService {
         @Path("id") fsqId: String,
         @Header("Authorization") authorization: String
     ): Call<List<Photo>>
+
+    @GET("v3/places/{fsq_id}")
+    fun getPlaceDetails(
+        @Path("fsq_id") fsqId: String,
+        @Header("Authorization") authorization: String
+    ): Call<PlaceDetails>
 }
 
 data class SearchResponse(val results: List<Venue>)

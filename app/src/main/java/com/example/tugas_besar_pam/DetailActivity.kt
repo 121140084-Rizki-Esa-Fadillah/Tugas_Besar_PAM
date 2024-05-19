@@ -31,12 +31,12 @@ class DetailActivity : AppCompatActivity() {
 
         val fsqId = intent.getStringExtra("FSQ_ID") ?: ""
         fetchPhotos(fsqId)
+        fetchPlaceDetails(fsqId)
 
         // Mendengarkan klik tombol kembali ke halaman pencarian
         binding.bgBacktoSearch.setOnClickListener {
             onBackPressed()
         }
-
 
         binding.vpGambar.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
@@ -80,6 +80,26 @@ class DetailActivity : AppCompatActivity() {
             binding.dotsIndicator.addView(dots[i])
         }
         selectDot(0)
+    }
+
+    private fun fetchPlaceDetails(fsqId: String) {
+        val apiService = RetrofitInstance.api
+        apiService.getPlaceDetails(fsqId, "fsq3ID+5NCwgxtrnfqyBktIcdxYI0AEyck+BNSA5EcQZb6w=").enqueue(object : Callback<PlaceDetails> {
+            override fun onResponse(call: Call<PlaceDetails>, response: Response<PlaceDetails>) {
+                val placeDetails = response.body()
+                if (placeDetails != null) {
+                    // Tampilkan data pada antarmuka pengguna (UI)
+                    binding.NamaTempat.text = placeDetails.name
+                    binding.AlamatTempat.text = placeDetails.location.formatted_address
+                    binding.RatingTempat.text = "Rating: ${placeDetails.rating?.toString() ?: "N/A"}"
+                    binding.JamOperasional.text = "Jam Operasional: ${placeDetails.hours?.display ?: "N/A"}"
+                }
+            }
+
+            override fun onFailure(call: Call<PlaceDetails>, t: Throwable) {
+                // Tangani kesalahan saat mengambil data
+            }
+        })
     }
 
     private fun fetchPhotos(fsqId: String) {
