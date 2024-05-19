@@ -114,7 +114,7 @@
   </ul><br>
 
   <li><b>Class Diagram</b></li><br>
-  <img src="https://github.com/121140084-Rizki-Esa-Fadillah/Tugas_Besar_PAM/blob/master/Image/Class_Diagram_PAM.png"
+  <img src="https://github.com/121140084-Rizki-Esa-Fadillah/Tugas_Besar_PAM/blob/master/Image/Class_Diagram.png"
     width = "750"
     height = "750"><br>
   <p>
