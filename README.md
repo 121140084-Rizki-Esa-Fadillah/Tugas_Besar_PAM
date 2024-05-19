@@ -88,7 +88,9 @@
         <li><b>Menambahkan Tempat Makan Favorit</b></li><br>
           <img src="https://github.com/121140084-Rizki-Esa-Fadillah/Tugas_Besar_PAM/blob/master/Image/Activity_Diagram_Add_Favorite.png">
         <li><b>Menghapus Tempat Makan Favorit</b></li><br>
-          <img src="https://github.com/121140084-Rizki-Esa-Fadillah/Tugas_Besar_PAM/blob/master/Image/Activity_Diagram_Delete_Favorite.png">
+          <img src="https://github.com/121140084-Rizki-Esa-Fadillah/Tugas_Besar_PAM/blob/master/Image/Activity_Diagram_Delete_Favorite.png"
+            width = "350"
+            height = "500">
         <li><b>Edit profil</b></li><br>
           <img src="https://github.com/121140084-Rizki-Esa-Fadillah/Tugas_Besar_PAM/blob/master/Image/Activity_Diagram_Edit_Profil.png">
         <li><b>Logout</b></li><br>
