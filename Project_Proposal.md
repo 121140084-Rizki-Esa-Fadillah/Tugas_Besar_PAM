@@ -145,8 +145,10 @@
   
   <li><b>UI Design (Figma)</b></li><br>
   <ol type='1'>
-    <li></li>
-    <li></li>
+    <li>Link Desain Figma</li> 
+    <p><a href="https://www.figma.com/design/WF0rkLw5Ki6mkdIJ7UXVwA/Eatera?node-id=0-1&t=26cAitNiMxrHI8hc-0 ">Klik Disini</a></p>
+    <li>Link Prototype Figma</li>
+    <p><a href="https://www.figma.com/proto/WF0rkLw5Ki6mkdIJ7UXVwA/Eatera?node-id=335-336&t=i2cFhZlL6fcBgz6L-1&scaling=scale-down&page-id=0%3A1&starting-point-node-id=3%3A8">Klik Disini</a></p>
   </ol><br>
 </ol>
 
