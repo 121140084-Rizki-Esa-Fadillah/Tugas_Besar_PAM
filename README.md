@@ -1,8 +1,10 @@
 # Aplikasi Eatera
 
-<img src="https://github.com/121140084-Rizki-Esa-Fadillah/Tugas_Besar_PAM/blob/master/Image/Logo_Eatera_A.png" 
-    width="350" 
-    title="hover text">
+<div align="center">
+    <img src="https://github.com/121140084-Rizki-Esa-Fadillah/Tugas_Besar_PAM/blob/master/Image/Logo_Eatera_A.png" 
+         width="350" 
+         title="hover text">
+</div>
 
 ## Tentang Aplikasi
 
