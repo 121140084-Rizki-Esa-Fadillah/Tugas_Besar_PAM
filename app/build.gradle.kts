@@ -133,4 +133,7 @@ dependencies {
 
     // MockWebServer dependency
     testImplementation("com.squareup.okhttp3:mockwebserver:4.9.1")
+
+    //Interceptor API Chucker
+    implementation("com.github.chuckerteam.chucker:library:4.0.0")
 }
