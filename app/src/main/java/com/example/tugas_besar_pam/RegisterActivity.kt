@@ -7,10 +7,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.example.tugas_besar_pam.databinding.ActivityRegisterBinding
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.firestore
-
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -43,7 +42,7 @@ class RegisterActivity : AppCompatActivity() {
                             val user = authTask.result?.user
                             val userId = user?.uid
 
-                            userId?.let {  uid ->
+                            userId?.let { uid ->
                                 val userData = hashMapOf(
                                     "email" to email,
                                     "name" to name,
@@ -52,24 +51,28 @@ class RegisterActivity : AppCompatActivity() {
 
                                 db.collection("users").document(uid)
                                     .set(userData)
-                                    .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
-                                    .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
-
-                                val intent = Intent(this, MainActivity::class.java)
-                                startActivity(intent)
+                                    .addOnSuccessListener {
+                                        Log.d(TAG, "DocumentSnapshot successfully written!")
+                                        Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show()
+                                        val intent = Intent(this, MainActivity::class.java)
+                                        startActivity(intent)
+                                        finish()  // Optional: Call finish() if you don't want to come back to the register activity when back button is pressed
+                                    }
+                                    .addOnFailureListener { e ->
+                                        Log.w(TAG, "Error writing document", e)
+                                        Toast.makeText(this, "Error writing document: ${e.message}", Toast.LENGTH_SHORT).show()
+                                    }
                             }
                         } else {
-                            Toast.makeText(this, authTask.exception.toString(), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, authTask.exception?.message ?: "Registrasi gagal!", Toast.LENGTH_SHORT).show()
                         }
                     }
                 } else {
-                    Toast.makeText(this, "Harap memasukkan data profile!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Harap memasukkan data profil!", Toast.LENGTH_SHORT).show()
                 }
             } else {
-                Toast.makeText(this, "Harap memasukkan password yang benar!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Harap memasukkan password yang sama!", Toast.LENGTH_SHORT).show()
             }
-
-
         }
     }
 }

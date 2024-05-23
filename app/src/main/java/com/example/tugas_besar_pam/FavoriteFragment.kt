@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -69,7 +70,13 @@ class FavoriteFragment : Fragment() {
 
     private fun onDeleteClicked(favorite: Favorite) {
         favoriteViewModel.deleteFavorite(favorite)
-        loadFavorites()
+        lifecycleScope.launch {
+            loadFavorites()
+            // Show a toast message on the main thread after deletion
+            withContext(Dispatchers.Main) {
+                Toast.makeText(requireContext(), "Favorite successfully deleted", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     override fun onDestroyView() {

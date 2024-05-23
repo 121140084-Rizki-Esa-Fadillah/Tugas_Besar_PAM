@@ -4,6 +4,8 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.view.ViewGroup
+import android.widget.Button
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -12,6 +14,11 @@ import com.example.tugas_besar_pam.databinding.ActivityMainBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.Task
+import com.google.firebase.Firebase
+import com.google.firebase.crashlytics.BuildConfig
+import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.initialize
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,6 +39,21 @@ class MainActivity : AppCompatActivity() {
             requestLocationPermission()
         }
 
+        // Log pesan bahwa MainActivity telah dibuat
+        FirebaseCrashlytics.getInstance().log("MainActivity created")
+
+        // Menambahkan tombol yang memicu crash
+        /* val crashButton = Button(this).apply {
+            text = "Test Crash"
+            setOnClickListener {
+                throw RuntimeException("Test Crash") // Paksa crash
+            }
+        }
+
+        addContentView(crashButton, ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT)) */
+
         binding.navigationView.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.search -> replaceFragment(SearchFragment().apply {
@@ -48,6 +70,7 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

@@ -136,7 +136,7 @@ class EditProfileActivity : AppCompatActivity() {
                     Toast.makeText(this, "Failed to upload image: ${exception.message}", Toast.LENGTH_SHORT).show()
                 }
         } ?: run {
-            Toast.makeText(this, "No image selected", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show()
             finish()
         }
     }

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.text.Html
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -64,6 +65,9 @@ class DetailActivity : AppCompatActivity() {
                 db.favoriteDao().addFavorite(
                     Favorite(fsqId, placeName, placeCategory, imageUrl)
                 )
+                runOnUiThread {
+                    Toast.makeText(this@DetailActivity, "Favorite successfully saved", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
